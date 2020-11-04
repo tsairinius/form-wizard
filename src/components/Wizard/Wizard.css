@@ -1,0 +1,32 @@
+.wizard-header {
+    padding: 24px 24px 0 24px;
+}
+
+.wizard-body {
+    padding: 0 24px;
+    min-height: 300px;
+}
+
+.wizard-buttons {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    column-gap: 18px;
+    padding: 0 24px 24px 24px;
+}
+
+.cancel-button {
+    grid-column: 1 / span 1;
+}
+
+.back-button {
+    grid-column: 3 / span 1;
+}
+
+.next-button {
+    grid-column: 4 / span 1;
+}
+
+.submit-button {
+    grid-column: 4 / span 1;
+}
+

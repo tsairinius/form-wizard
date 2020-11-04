@@ -1,0 +1,7 @@
+.styled-container {
+    max-width: 780px;
+    margin: 50px auto;
+    background: rgb(255, 223, 223);
+    border: 1px solid #C4C4C4;
+    border-radius: 4px;
+}

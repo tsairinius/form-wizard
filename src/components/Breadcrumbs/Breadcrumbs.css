@@ -1,0 +1,11 @@
+.breadcrumbs {
+    display: flex;
+}
+
+.breadcrumbs .breadcrumb-slash {
+    margin: 0px 8px;
+}
+
+.breadcrumbs .active-step {
+    font-weight: 300;
+}
