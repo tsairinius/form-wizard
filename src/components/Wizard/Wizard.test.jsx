@@ -1,7 +1,6 @@
 import React from 'react';
 import Wizard from './Wizard';
 import { render, screen, within } from '@testing-library/react';
-// import { within } from '@testing'
 import userEvent from '@testing-library/user-event';
 
 const stepLabels = [ 'Dog', 'Cat', 'Mouse' ];
