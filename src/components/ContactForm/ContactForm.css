@@ -1,0 +1,20 @@
+.contact-form {
+    margin: 30px auto;
+    max-width: 450px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    row-gap: 10px;
+    align-items: center;
+}
+
+.contact-form label {
+    grid-column: 1 span 1;
+}
+
+.contact-form input {
+    grid-column: 2 span 1;
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 30px;
+    padding-left: 5px;
+}

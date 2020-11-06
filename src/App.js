@@ -1,13 +1,52 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import Wizard from './components/Wizard';
 import StyledContainer from './components/StyledContainer';
 import './App.css';
+import ContactForm from './components/ContactForm/ContactForm';
 
 function App() {
+  const initialInfo = {
+    first: "",
+    last: "",
+    email: "",
+    password: "",
+    confirmPass: ""
+  }
+
+  const [ contactInfo, setContactInfo ] = useState(initialInfo);
+  const [ canProgress, setCanProgress ] = useState(true);
+  const [ currentStep, setCurrentStep ] = useState(0);
+
+  const handleChange = event => {
+      const property = event.target.name;
+      const value = event.target.value;
+
+      setContactInfo({
+          ...contactInfo,
+          [property]: value
+      })
+  }
+
+  useEffect(() => {
+    if (currentStep === 0) {
+      setCanProgress(isContactInfoComplete() && isPasswordConfirmed());
+    }
+  }, [contactInfo, currentStep])
+
+  const getCurrentStep = currentStep => setCurrentStep(currentStep);
+
+  const isContactInfoComplete = () => {
+    return !Object.values(contactInfo).some(value => value === "");
+  }
+
+  const isPasswordConfirmed = () => {
+    return contactInfo.password === contactInfo.confirmPass;
+  }
+
   return (
     <StyledContainer>
-      <Wizard title="Signup" stepLabels={['Cat', 'Dog', 'Mouse']}> 
-        <div>Cat</div>
+      <Wizard canProgress={canProgress} onStepChange={getCurrentStep} title="Signup" stepLabels={['Contact information', 'Dog', 'Mouse']}> 
+        <ContactForm onChange={handleChange} contactInfo={contactInfo}/> 
         <div>Dog</div>
         <div>Mouse</div>
       </Wizard>
