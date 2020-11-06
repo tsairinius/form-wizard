@@ -1,0 +1,34 @@
+.user-availability {
+    margin: 50px auto;
+}
+
+.availability-table {
+    display: inline-grid;
+    grid-template-columns: repeat(8, auto);
+    gap: 8px 12px;
+    justify-items: center;
+    align-items: center;
+}
+
+.time-of-day {
+    justify-self: left;
+}
+
+.time-block {
+    background: #FFFFFF;
+    border: 1px solid #258381;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 64px;
+    height: 24px;
+}
+
+.time-block:not(.read-only):hover {
+    background: #258381;
+    opacity: 50%;
+}
+
+.time-block.is-active {
+    background: #258381
+}
+

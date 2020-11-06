@@ -3,6 +3,7 @@ import Wizard from './components/Wizard';
 import StyledContainer from './components/StyledContainer';
 import './App.css';
 import ContactForm from './components/ContactForm/ContactForm';
+import UserAvailability from './components/UserAvailability';
 
 function App() {
   const initialInfo = {
@@ -47,8 +48,7 @@ function App() {
     <StyledContainer>
       <Wizard canProgress={canProgress} onStepChange={getCurrentStep} title="Signup" stepLabels={['Contact information', 'Dog', 'Mouse']}> 
         <ContactForm onChange={handleChange} contactInfo={contactInfo}/> 
-        <div>Dog</div>
-        <div>Mouse</div>
+        <UserAvailability title={"Your availability"}/>
       </Wizard>
     </StyledContainer>
   );
