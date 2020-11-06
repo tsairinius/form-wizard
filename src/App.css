@@ -7,6 +7,11 @@
   --secondary-color: #FFA07A;
 }
 
+hr {
+  margin: 10px 5px;
+  border: 1px solid rgb(190, 190, 190, 0.5);
+}
+
 button {
   max-width: 140px;
   height: 40px;

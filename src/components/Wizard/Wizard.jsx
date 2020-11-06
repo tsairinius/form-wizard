@@ -61,7 +61,7 @@ const Wizard = ({onStepChange, canProgress = true, children, onSubmit, onCancel,
                     <h2>{title}</h2>
                 </div>
 
-                {/* <Rule type={'primary'}/> */}
+                <hr/>
 
                 <div className='wizard-body'>
                     {showBreadcrumbs()}
@@ -70,7 +70,7 @@ const Wizard = ({onStepChange, canProgress = true, children, onSubmit, onCancel,
                     </div>
                 </div>
 
-                {/* <Rule type={'primary'}/> */}
+                <hr/>
 
                 <div className='wizard-buttons'>
                     <button className='cancel-button secondary' onClick={onCancel}>Cancel</button>
