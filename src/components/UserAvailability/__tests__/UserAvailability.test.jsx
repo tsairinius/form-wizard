@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import UserAvailability from '..';
 import userEvent from '@testing-library/user-event';
 
@@ -41,5 +41,14 @@ describe("testing behavior of clicking on time blocks", () => {
         userEvent.click(screen.getByTestId(timeBlockId));
 
         expect(screen.getByTestId(timeBlockId)).not.toHaveClass(isActiveClass);
+    })
+
+    test("if onChange callback is passed in, it should be called when user availability is modified", async () => {
+        const handleChange = jest.fn();
+        render(<UserAvailability onChange={handleChange}/>);
+
+        userEvent.click(screen.getByTestId(timeBlockId));
+        
+        expect(handleChange).toHaveBeenLastCalledWith([{avail_day: timeBlockId[0], avail_time: timeBlockId[1]}]);
     })
 })

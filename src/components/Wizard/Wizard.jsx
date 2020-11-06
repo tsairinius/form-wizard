@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import './Wizard.css';
 
 const Wizard = ({onStepChange, canProgress = true, children, onSubmit, onCancel, stepLabels, title, submitName='Submit'}) => {
+    //check that number of step labels equals number of children
+
     const [ currentStep, setCurrentStep ] = useState(0);
     const numSteps = React.Children.count(children);
     const isValidNumSteps = numSteps > 0;

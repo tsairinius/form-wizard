@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-const UserAvailability = ({availability = [], readOnly = false, title}) => {
+const UserAvailability = ({availability = [], readOnly = false, title, onChange}) => {
+
+
     const [ timeBlocks, setTimeBlocks ] = useState([]);
 
     useEffect(() => {
@@ -19,7 +21,7 @@ const UserAvailability = ({availability = [], readOnly = false, title}) => {
     }, [])
 
     useEffect(() => {
-        if (availability.length) {
+        if (availability.length) { //should we have this? 
             const availabilityToIds = availability.map(item => `${item.avail_day}${item.avail_time}`)
             let isBlockActive;
             setTimeBlocks(prevTimeBlocks => prevTimeBlocks.map(block => {
@@ -30,7 +32,26 @@ const UserAvailability = ({availability = [], readOnly = false, title}) => {
                 }
             }))
         }
-    }, [availability])
+    }, [availability]);
+
+    useEffect(() => {
+        if (onChange) {
+            let temp = [];
+            timeBlocks.forEach(block => {
+                if (block.isActive) {
+                    temp = [
+                        ...temp,
+                        {
+                            avail_day: block.id[0],
+                            avail_time: block.id[1]
+                        }
+                    ]
+                }
+            })
+    
+            onChange(temp);
+        }
+    }, [timeBlocks])
 
     const handleClick = (blockId) => {
         if (!readOnly) {

@@ -18,6 +18,12 @@ function App() {
   const [ canProgress, setCanProgress ] = useState(true);
   const [ currentStep, setCurrentStep ] = useState(0);
 
+  const [availability, setAvailability ] = useState([]);
+
+  const saveAvailability = (updatedAvail) => {
+    setAvailability(updatedAvail);
+  }
+
   const handleChange = event => {
       const property = event.target.name;
       const value = event.target.value;
@@ -29,10 +35,19 @@ function App() {
   }
 
   useEffect(() => {
-    if (currentStep === 0) {
-      setCanProgress(isContactInfoComplete() && isPasswordConfirmed());
+    switch(currentStep) {
+      case 0: 
+        setCanProgress(isContactInfoComplete() && isPasswordConfirmed());
+        break;
+
+      case 1: 
+        setCanProgress(availability.length > 0);
+        break;
+
+      default:
+        break;
     }
-  }, [contactInfo, currentStep])
+  }, [contactInfo, availability, currentStep])
 
   const getCurrentStep = currentStep => setCurrentStep(currentStep);
 
@@ -46,9 +61,9 @@ function App() {
 
   return (
     <StyledContainer>
-      <Wizard canProgress={canProgress} onStepChange={getCurrentStep} title="Signup" stepLabels={['Contact information', 'Dog', 'Mouse']}> 
+      <Wizard canProgress={canProgress} onStepChange={getCurrentStep} title="Signup" stepLabels={['Contact information', 'Availability']}> 
         <ContactForm onChange={handleChange} contactInfo={contactInfo}/> 
-        <UserAvailability title={"Your availability"}/>
+        <UserAvailability title={"Your availability"} onChange={saveAvailability}/>
       </Wizard>
     </StyledContainer>
   );
