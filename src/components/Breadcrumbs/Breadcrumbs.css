@@ -2,10 +2,14 @@
     display: flex;
 }
 
+.breadcrumbs h4 {
+    font-weight: 300;
+}
+
 .breadcrumbs .breadcrumb-slash {
     margin: 0px 8px;
 }
 
 .breadcrumbs .active-step {
-    font-weight: 300;
+    font-weight: 600;
 }

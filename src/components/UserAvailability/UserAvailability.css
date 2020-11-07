@@ -1,0 +1,17 @@
+.user-availability {
+    max-width: 620px;
+    margin: 50px auto;
+}
+
+.availability-table {
+    display: grid;
+    grid-template-columns: auto repeat(7, minmax(30px, 1fr));
+    grid-template-rows: repeat(4, 24px);
+    gap: 8px 12px;
+    justify-items: center;
+    align-items: center;
+}
+
+.time-of-day {
+    justify-self: left;
+}
