@@ -58,7 +58,7 @@ const Wizard = ({onStepChange, canProgress = true, children, onSubmit, onCancel,
 
     return (
         isValidNumSteps ? 
-            <div>
+            <div className="wizard">
                 <div className='wizard-header'>
                     <h2>{title}</h2>
                 </div>

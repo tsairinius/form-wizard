@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './TimeBlock.css';
 
 const TimeBlock = ({id, isActive, readOnly, onClick}) => {
     return (

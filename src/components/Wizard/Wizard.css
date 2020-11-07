@@ -1,3 +1,8 @@
+.wizard hr {
+    margin: 10px 5px;
+    border: 1px solid rgb(190, 190, 190, 0.5);
+}
+
 .wizard-header {
     padding: 24px 24px 0 24px;
 }
@@ -13,20 +18,45 @@
     column-gap: 18px;
     padding: 0 24px 24px 24px;
 }
+  
+.wizard-buttons button {
+    max-width: 140px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid black;
+    color: white;
+}
 
-.cancel-button {
+.wizard-buttons button:disabled {
+    opacity: 45%;
+}
+
+.wizard-buttons button:not(:disabled):hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+
+.wizard-buttons button.primary {
+    background-color: var(--primary-color);
+}
+
+.wizard-buttons button.secondary {
+    background-color: var(--secondary-color);
+}
+
+.wizard-buttons .cancel-button {
     grid-column: 1 / span 1;
 }
 
-.back-button {
+.wizard-buttons .back-button {
     grid-column: 3 / span 1;
 }
 
-.next-button {
+.wizard-buttons .next-button {
     grid-column: 4 / span 1;
 }
 
-.submit-button {
+.wizard-buttons .submit-button {
     grid-column: 4 / span 1;
 }
 

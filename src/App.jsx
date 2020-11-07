@@ -63,7 +63,7 @@ function App() {
     <StyledContainer>
       <Wizard canProgress={canProgress} onStepChange={getCurrentStep} title="Signup" stepLabels={['Contact information', 'Availability']}> 
         <ContactForm onChange={handleChange} contactInfo={contactInfo}/> 
-        <UserAvailability title={"Your availability"} onChange={saveAvailability}/>
+        <UserAvailability onChange={saveAvailability}/>
       </Wizard>
     </StyledContainer>
   );

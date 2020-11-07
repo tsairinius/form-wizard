@@ -2,7 +2,7 @@ import React from 'react';
 import TimeBlock from './TimeBlock';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './style.css';
+import './UserAvailability.css';
 
 const UserAvailability = ({availability = [], readOnly = false, title, onChange}) => {
 
