@@ -4,56 +4,68 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './UserAvailability.css';
 
-const UserAvailability = ({availability = [], readOnly = false, title, onChange}) => {
-
-
+const UserAvailability = ({initialAvailability = [], readOnly = false, title, onChange}) => {
     const [ timeBlocks, setTimeBlocks ] = useState([]);
 
     useEffect(() => {
-        let temp = [];
-        for (let time = 0; time < 3; time++){
-            for (let day = 0; day < 7; day++) {
-                temp = [...temp, {id: `${day}${time}`, isActive: false}]
-            }
-        }
-
-        setTimeBlocks(temp)
+        initializeTimeBlocks();
     }, [])
 
     useEffect(() => {
-        if (availability.length) { //should we have this? 
-            const availabilityToIds = availability.map(item => `${item.avail_day}${item.avail_time}`)
-            let isBlockActive;
-            setTimeBlocks(prevTimeBlocks => prevTimeBlocks.map(block => {
-                isBlockActive = availabilityToIds.includes(block.id)
-                return {
-                    ...block,
-                    isActive: isBlockActive
-                }
-            }))
+        if (initialAvailability.length) { 
+            updateTimeBlocksWithAvailability();
         }
-    }, [availability]);
+    }, [initialAvailability]);
 
     useEffect(() => {
         if (onChange) {
-            let temp = [];
-            timeBlocks.forEach(block => {
-                if (block.isActive) {
-                    temp = [
-                        ...temp,
-                        {
-                            avail_day: block.id[0],
-                            avail_time: block.id[1]
-                        }
-                    ]
-                }
-            })
-    
-            onChange(temp);
+            const updatedAvailability = idsToAvailability();
+            onChange(updatedAvailability);
         }
     }, [timeBlocks])
 
-    const handleClick = (blockId) => {
+    const initializeTimeBlocks = () => {
+        let blocks = [];
+        for (let time = 0; time < 3; time++){
+            for (let day = 0; day < 7; day++) {
+                blocks = [...blocks, {id: `${day}${time}`, isActive: false}]
+            }
+        }
+
+        setTimeBlocks(blocks)
+    }
+
+    const updateTimeBlocksWithAvailability = () => {
+        const availabilityToIds = initialAvailability.map(item => `${item.avail_day}${item.avail_time}`);
+        let isBlockActive;
+
+        setTimeBlocks(prevTimeBlocks => prevTimeBlocks.map(block => {
+            isBlockActive = availabilityToIds.includes(block.id)
+            return {
+                ...block,
+                isActive: isBlockActive
+            }
+        }))
+    }
+
+    const idsToAvailability = () => {
+        let updatedAvailability = [];
+        timeBlocks.forEach(block => {
+            if (block.isActive) {
+                updatedAvailability = [
+                    ...updatedAvailability,
+                    {
+                        avail_day: block.id[0],
+                        avail_time: block.id[1]
+                    }
+                ]
+            }
+        });
+
+        return updatedAvailability;
+    }
+
+    const updateClickedBlock = (blockId) => {
         if (!readOnly) {
             setTimeBlocks(
                 timeBlocks.map(block => {
@@ -83,7 +95,7 @@ const UserAvailability = ({availability = [], readOnly = false, title, onChange}
                 return <div className="time-of-day" key={item}>{item}</div>
             }
             else {
-                return <TimeBlock readOnly={readOnly} key={item.id} id={item.id} isActive={item.isActive} onClick={handleClick}/>;
+                return <TimeBlock readOnly={readOnly} key={item.id} id={item.id} isActive={item.isActive} onClick={updateClickedBlock}/>;
             }
         })
     }
@@ -107,7 +119,7 @@ const UserAvailability = ({availability = [], readOnly = false, title, onChange}
 };
 
 UserAvailability.propTypes = {
-    availability: PropTypes.arrayOf(PropTypes.exact({
+    initialAvailability: PropTypes.arrayOf(PropTypes.exact({
                     avail_day: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]).isRequired,
                     avail_time: PropTypes.oneOf([0, 1, 2]).isRequired
     }).isRequired)
