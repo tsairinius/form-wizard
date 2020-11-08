@@ -15,6 +15,7 @@ function App() {
   }
 
   const [ contactInfo, setContactInfo ] = useState(initialInfo);
+  const [ isPasswordMatched, setIsPasswordMatched ] = useState(true);
   const [ canProgress, setCanProgress ] = useState(true);
   const [ currentStep, setCurrentStep ] = useState(0);
 
@@ -37,7 +38,8 @@ function App() {
   useEffect(() => {
     switch(currentStep) {
       case 0: 
-        setCanProgress(isContactInfoComplete() && isPasswordConfirmed());
+        const isContactFormValid = validateContactForm();
+        setCanProgress(isContactFormValid);
         break;
 
       case 1: 
@@ -55,14 +57,32 @@ function App() {
     return !Object.values(contactInfo).some(value => value === "");
   }
 
-  const isPasswordConfirmed = () => {
-    return contactInfo.password === contactInfo.confirmPass;
+  const validateContactForm = () => {
+    let isValid = true;
+    if (!isContactInfoComplete()) {
+      isValid = false;
+    }
+    if (!checkAndSetIsPasswordMatched()) {
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  const checkAndSetIsPasswordMatched = () => {
+    let isMatched = false;
+    if (contactInfo.password === contactInfo.confirmPass) {
+      isMatched = true;
+    }
+
+    setIsPasswordMatched(isMatched);
+    return isMatched;
   }
 
   return (
     <StyledContainer>
       <Wizard canProgress={canProgress} onStepChange={getCurrentStep} title="Signup" stepLabels={['Contact information', 'Availability']}> 
-        <ContactForm onChange={handleChange} contactInfo={contactInfo}/> 
+        <ContactForm onChange={handleChange} contactInfo={contactInfo} isPasswordMatched={isPasswordMatched}/> 
         <UserAvailability onChange={saveAvailability}/>
       </Wizard>
     </StyledContainer>

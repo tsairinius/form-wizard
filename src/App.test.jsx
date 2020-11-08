@@ -10,6 +10,13 @@ const contactInfo = {
   confirmedPass: "jsmith1234"
 };
 
+const fillFormWithUnmatchedPassword = () => {
+  const confirmPassword = screen.getByLabelText('Confirm Password');
+  fillContactForm();
+  userEvent.clear(confirmPassword);
+  userEvent.type(confirmPassword, "unmatchedPassword");
+}
+
 const fillContactForm = () => {
   userEvent.type(screen.getByLabelText('First'), contactInfo.first);
   userEvent.type(screen.getByLabelText('Last'), contactInfo.last);
@@ -28,11 +35,17 @@ describe("Testing contact form step", () => {
   });
   
   test('Disable Next if all fields are filled, but password and confirmed password do not match', () => {
-    fillContactForm(); 
-    userEvent.type(screen.getByLabelText('Confirm Password'), "unmatchedPassword");
+    fillFormWithUnmatchedPassword();
 
     expect(screen.getByRole('button', {name: 'Next'})).toHaveAttribute('disabled');
-  })
+  });
+
+  test('If user types in mismatched confirmed password, the field is highlighted with error displayed', () => {
+    fillFormWithUnmatchedPassword();
+
+    expect(screen.getByLabelText('Confirm Password')).toHaveClass('input-error');
+    expect(screen.getByText('Password mismatch')).toBeInTheDocument();
+  });
   
   test('Next button is enabled once all fields are filled and password is confirmed', () => {
     fillContactForm();
