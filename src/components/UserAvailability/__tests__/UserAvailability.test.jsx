@@ -1,16 +1,16 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import UserAvailability from '..';
 import userEvent from '@testing-library/user-event';
 
 const isActiveClass = 'is-active';
 test("time blocks specified by availability prop have is-active class", () => {
-    const availability = [{avail_day: 1, avail_time: 0}, 
+    const initialAvailability = [{avail_day: 1, avail_time: 0}, 
                           {avail_day: 3, avail_time: 1}, 
                           {avail_day: 6, avail_time: 2}];
-    render(<UserAvailability availability={availability}/>);
+    render(<UserAvailability initialAvailability={initialAvailability}/>);
 
-    availability.forEach(item => {
+    initialAvailability.forEach(item => {
         expect(screen.getByTestId(`${item.avail_day}${item.avail_time}`)).toHaveClass(isActiveClass)
     })
 })
@@ -43,7 +43,7 @@ describe("testing behavior of clicking on time blocks", () => {
         expect(screen.getByTestId(timeBlockId)).not.toHaveClass(isActiveClass);
     })
 
-    test("if onChange callback is passed in, it should be called when user availability is modified", async () => {
+    test("if onChange callback should pass latest user availability data when invoked", () => {
         const handleChange = jest.fn();
         render(<UserAvailability onChange={handleChange}/>);
 
