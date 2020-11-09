@@ -21,24 +21,15 @@ function App() {
 
   const [availability, setAvailability ] = useState([]);
 
-  const saveAvailability = (updatedAvail) => {
-    setAvailability(updatedAvail);
-  }
-
-  const handleChange = event => {
-      const property = event.target.name;
-      const value = event.target.value;
-
-      setContactInfo({
-          ...contactInfo,
-          [property]: value
-      })
-  }
-
   useEffect(() => {
+    updateIsPasswordMatched();
+    updateCanProgress();
+  }, [contactInfo, availability, currentStep]);
+
+  const updateCanProgress = () => {
     switch(currentStep) {
       case 0: 
-        const isContactFormValid = validateContactForm();
+        const isContactFormValid = checkForValidForm();
         setCanProgress(isContactFormValid);
         break;
 
@@ -49,41 +40,60 @@ function App() {
       default:
         break;
     }
-  }, [contactInfo, availability, currentStep])
+  }
 
-  const getCurrentStep = currentStep => setCurrentStep(currentStep);
+  const updateAvailability = (updatedAvail) => {
+    setAvailability(updatedAvail);
+  }
 
-  const isContactInfoComplete = () => {
+  const updateContactInfo = event => {
+      const property = event.target.name;
+      const value = event.target.value;
+
+      setContactInfo({
+          ...contactInfo,
+          [property]: value
+      })
+  }
+
+  const updateIsPasswordMatched = () => {
+    const isMatched = checkForPasswordMatch();
+
+    setIsPasswordMatched(isMatched);
+  }
+
+  const checkForCompleteForm = () => {
     return !Object.values(contactInfo).some(value => value === "");
   }
 
-  const validateContactForm = () => {
+  const checkForValidForm = () => {
     let isValid = true;
-    if (!isContactInfoComplete()) {
-      isValid = false;
-    }
-    if (!checkAndSetIsPasswordMatched()) {
+    if (!checkForCompleteForm() || !checkForPasswordMatch()) {
       isValid = false;
     }
 
     return isValid;
   }
 
-  const checkAndSetIsPasswordMatched = () => {
+  const checkForPasswordMatch = () => {
     let isMatched = false;
     if (contactInfo.password === contactInfo.confirmPass) {
       isMatched = true;
     }
 
-    setIsPasswordMatched(isMatched);
     return isMatched;
   }
+
+  const getCurrentStep = currentStep => setCurrentStep(currentStep);
 
   return (
     <StyledContainer>
       <Wizard canProgress={canProgress} onStepChange={getCurrentStep} title="Signup" stepLabels={['Contact information', 'Availability']}> 
-        <ContactForm onChange={handleChange} contactInfo={contactInfo} isPasswordMatched={isPasswordMatched}/> 
-        <UserAvailability onChange={saveAvailability}/>
+        <ContactForm onChange={updateContactInfo} contactInfo={contactInfo} isPasswordMatched={isPasswordMatched}/> 
+        <div>
+          <p className={"user-instructions"}>Please provide your availability below</p>
+          <UserAvailability onChange={updateAvailability}/>
+        </div>
       </Wizard>
     </StyledContainer>
   );

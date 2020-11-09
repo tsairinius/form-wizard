@@ -4,7 +4,7 @@ import './ContactForm.css';
 const ContactForm = ({onChange, contactInfo, isPasswordMatched}) => {
     return (
         <div>
-            <p className="form-instructions">Please fill out all fields below</p>
+            <p className="user-instructions">Please fill out all fields below</p>
             <form className="contact-form">
                 <label htmlFor="first">First</label>
                 <input type="text" id="first" name="first" value={contactInfo.first} onChange={onChange}/>

@@ -1,19 +1,5 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+.user-instructions {
+  margin-top: 20px;    
 }
-
-body {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-}
-
-html {
-  background-image: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
-  --primary-color: rgb(172, 0, 143);
-  --secondary-color: rgb(50, 150, 230);
-  height: 100%;
-}
-
 
 
