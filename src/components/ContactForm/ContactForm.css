@@ -7,10 +7,6 @@
     align-items: center;
 }
 
-.form-instructions {
-    margin-top: 20px;    
-}
-
 .contact-form label {
     grid-column: 1 span 1;
 }

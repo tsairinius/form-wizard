@@ -102,7 +102,7 @@ const UserAvailability = ({initialAvailability = [], readOnly = false, title, on
 
     return (
         <div className="user-availability">
-            {title ? <h5>{title}</h5> : null}
+            {title ? <h4>{title}</h4> : null}
             <div className='availability-table'>
                     <div></div>
                     <div>Mon</div>
