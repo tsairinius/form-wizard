@@ -47,7 +47,6 @@ const Wizard = ({onStepChange, canProgress = true, children, onSubmit, onCancel,
         return (Array.isArray(stepLabels) && stepLabels[0]) ?
             <>
                 <Breadcrumbs onClick={handleBreadcrumbClick} stepLabels={stepLabels} currentStep={currentStep} />
-                {/* <Rule type={'secondary'}/> */}
             </>
             : null
     }
@@ -60,7 +59,7 @@ const Wizard = ({onStepChange, canProgress = true, children, onSubmit, onCancel,
         isValidNumSteps ? 
             <div className="wizard">
                 <div className='wizard-header'>
-                    <h2>{title}</h2>
+                    <h1>{title}</h1>
                 </div>
 
                 <hr/>

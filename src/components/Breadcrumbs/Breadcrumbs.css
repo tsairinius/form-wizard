@@ -2,8 +2,8 @@
     display: flex;
 }
 
-.breadcrumbs h4 {
-    font-weight: 300;
+.breadcrumbs h3 {
+    opacity: 60%;
 }
 
 .breadcrumbs .breadcrumb-slash {
@@ -11,5 +11,5 @@
 }
 
 .breadcrumbs .active-step {
-    font-weight: 600;
+    opacity: 100%;
 }
