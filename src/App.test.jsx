@@ -10,6 +10,10 @@ const contactInfo = {
   confirmedPass: "jsmith1234"
 };
 
+const timeBlockId = "51";
+const formCompleteMessage = "You completed the demo!";
+const formCancelMessage = "You exited the demo!";
+
 const fillFormWithUnmatchedPassword = () => {
   const confirmPassword = screen.getByLabelText('Confirm Password');
   fillContactForm();
@@ -66,8 +70,29 @@ describe('Testing user availability step', () => {
   }); 
 
   test('Submit button is enabled once availability table has selected time blocks', () => {
-    userEvent.click(screen.getByTestId('51'));
+    userEvent.click(screen.getByTestId(timeBlockId));
     expect(screen.getByRole('button', {name: 'Submit'})).not.toHaveAttribute('disabled');
   })
 });
+
+describe("Testing cancel and submit behaviors of form wizard", () => {
+  test("Clicking Submit button will display appropriate message", () => {
+    render(<App />);
+    fillContactForm();
+    userEvent.click(screen.getByRole('button', {name: 'Next'}));
+    userEvent.click(screen.getByTestId(timeBlockId));
+    userEvent.click(screen.getByRole("button", {name: "Submit"}));
+
+    expect(screen.getByText(formCompleteMessage)).toBeInTheDocument();
+    expect(screen.getByRole("button", {name: "Return to form"})).toBeInTheDocument();
+  });
+
+  test("Clicking Cancel button will display appropriate message", () => {
+    render(<App />);
+    userEvent.click(screen.getByRole("button", {name: "Cancel"}));
+
+    expect(screen.getByText(formCancelMessage)).toBeInTheDocument();
+    expect(screen.getByRole("button", {name: "Return to form"})).toBeInTheDocument();
+  });
+})
 

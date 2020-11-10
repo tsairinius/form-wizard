@@ -50,12 +50,17 @@ const useContactInfo = () => {
       return isMatched;
     }
 
+    const clearForm = () => {
+      setContactInfo(initialInfo);
+    }
+
     return {
         contactInfo,
         updateContactInfo, 
         isPasswordMatched,
         updateIsPasswordMatched,
-        checkForValidForm
+        checkForValidForm,
+        clearForm
     }
 }
 
