@@ -1,0 +1,14 @@
+.message-container {
+    max-width: 400px;
+    padding: 50px 0px;
+    height: 200px;
+    text-align: center;
+}
+
+.message-container .message-text {
+    font-family: 'Rock Salt', 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.message-container button {
+    margin: 10px auto;
+}

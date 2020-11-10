@@ -2,4 +2,32 @@
   margin-top: 20px;    
 }
 
+.wizard-container {
+  max-width: 780px;
+}
 
+.form-wizard-app button {
+  max-width: 140px;
+  padding: 6px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid black;
+  color: white;
+}
+
+.form-wizard-app button:disabled {
+  opacity: 45%;
+}
+
+.form-wizard-app button:not(:disabled):hover {
+  cursor: pointer;
+  opacity: 80%;
+}
+
+.form-wizard-app button.primary {
+  background-color: var(--primary-color);
+}
+
+.form-wizard-app button.secondary {
+  background-color: var(--secondary-color);
+}
