@@ -1,29 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import TimeBlock from './TimeBlock';
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './UserAvailability.css';
 
-const UserAvailability = ({initialAvailability = [], readOnly = false, title, onChange}) => {
-    const [ timeBlocks, setTimeBlocks ] = useState([]);
-
-    useEffect(() => {
-        initializeTimeBlocks();
-    }, [])
-
-    useEffect(() => {
-        if (initialAvailability.length) { 
-            updateTimeBlocksWithAvailability();
-        }
-    }, [initialAvailability]);
-
-    useEffect(() => {
-        if (onChange) {
-            const updatedAvailability = idsToAvailability();
-            onChange(updatedAvailability);
-        }
-    }, [timeBlocks])
-
+const UserAvailability = ({currentAvail = [], readOnly = false, title, onChange}) => {
     const initializeTimeBlocks = () => {
         let blocks = [];
         for (let time = 0; time < 3; time++){
@@ -32,25 +12,27 @@ const UserAvailability = ({initialAvailability = [], readOnly = false, title, on
             }
         }
 
-        setTimeBlocks(blocks)
+        return blocks;
     }
 
-    const updateTimeBlocksWithAvailability = () => {
-        const availabilityToIds = initialAvailability.map(item => `${item.avail_day}${item.avail_time}`);
+    const timeBlocks = useRef(initializeTimeBlocks());
+
+    const availToTimeBlocks = () => {
+        const availabilityToIds = currentAvail.map(item => `${item.avail_day}${item.avail_time}`);
         let isBlockActive;
 
-        setTimeBlocks(prevTimeBlocks => prevTimeBlocks.map(block => {
+        timeBlocks.current = timeBlocks.current.map(block => {
             isBlockActive = availabilityToIds.includes(block.id)
             return {
                 ...block,
                 isActive: isBlockActive
             }
-        }))
+        }); 
     }
 
     const idsToAvailability = () => {
         let updatedAvailability = [];
-        timeBlocks.forEach(block => {
+        timeBlocks.current.forEach(block => {
             if (block.isActive) {
                 updatedAvailability = [
                     ...updatedAvailability,
@@ -67,23 +49,27 @@ const UserAvailability = ({initialAvailability = [], readOnly = false, title, on
 
     const updateClickedBlock = (blockId) => {
         if (!readOnly) {
-            setTimeBlocks(
-                timeBlocks.map(block => {
-                    if (block.id === blockId) {
-                        return {
-                            ...block,
-                            isActive: !block.isActive
-                        }
-                    }
-                    return block;
-                })
-            )
+            timeBlocks.current = timeBlocks.current.map(block => {
+                            if (block.id === blockId) {
+                                return {
+                                    ...block,
+                                    isActive: !block.isActive
+                                }
+                            }
+                            return block;
+                        })
+
+            if (onChange) {
+                const updatedAvailability = idsToAvailability();
+                onChange(updatedAvailability);
+            }
         }
     }
 
     const renderTimeLabelsAndBlocks = () => {
+        availToTimeBlocks();
         const timeLabelsAndBlocks = (() => {
-            let temp = [...timeBlocks];
+            let temp = [...timeBlocks.current];
             temp.splice(0, 0, 'Morning');
             temp.splice(8, 0, 'Afternoon');
             temp.splice(16, 0, 'Evening');
@@ -119,10 +105,11 @@ const UserAvailability = ({initialAvailability = [], readOnly = false, title, on
 };
 
 UserAvailability.propTypes = {
-    initialAvailability: PropTypes.arrayOf(PropTypes.exact({
-                    avail_day: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]).isRequired,
-                    avail_time: PropTypes.oneOf([0, 1, 2]).isRequired
-    }).isRequired)
+    currentAvail: PropTypes.arrayOf(PropTypes.exact({
+                    avail_day: PropTypes.oneOf(['0', '1', '2', '3', '4', '5', '6']).isRequired,
+                    avail_time: PropTypes.oneOf(['0', '1', '2']).isRequired
+    })).isRequired,
+    onChange: PropTypes.func.isRequired
 }
 
 export default UserAvailability;

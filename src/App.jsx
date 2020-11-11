@@ -72,7 +72,7 @@ function App() {
           <ContactForm onChange={updateContactInfo} contactInfo={contactInfo} isPasswordMatched={isPasswordMatched}/> 
           <div>
             <p className={"user-instructions"}>Please provide your availability below</p>
-            <UserAvailability onChange={updateAvailability}/>
+            <UserAvailability currentAvail={availability} onChange={updateAvailability}/>
           </div>
         </Wizard>
       </StyledContainer>}
