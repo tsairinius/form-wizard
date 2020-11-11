@@ -52,6 +52,8 @@ describe("Testing contact form step", () => {
 })
 
 describe('Testing user availability step', () => {
+  const timeBlockId = '02';
+  const isActiveClass = 'is-active';
   beforeEach(() => {
     render(<App />);
     fillContactForm();
@@ -65,6 +67,21 @@ describe('Testing user availability step', () => {
   test('Submit button is enabled once availability table has selected time blocks', () => {
     userEvent.click(screen.getByTestId(timeBlockId));
     expect(screen.getByRole('button', {name: 'Submit'})).not.toHaveAttribute('disabled');
+  })
+
+  test("time block acquires is-active class when clicked on", () => {
+      expect(screen.getByTestId(timeBlockId)).not.toHaveClass(isActiveClass);
+  
+      userEvent.click(screen.getByTestId(timeBlockId))
+  
+      expect(screen.getByTestId(timeBlockId)).toHaveClass(isActiveClass);
+  })
+
+  test("time block should not have is-active class when clicked on twice in a row", () => {
+      userEvent.click(screen.getByTestId(timeBlockId));
+      userEvent.click(screen.getByTestId(timeBlockId));
+
+      expect(screen.getByTestId(timeBlockId)).not.toHaveClass(isActiveClass);
   })
 });
 
