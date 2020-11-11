@@ -43,13 +43,6 @@ describe("Testing contact form step", () => {
 
     expect(screen.getByRole('button', {name: 'Next'})).toHaveAttribute('disabled');
   });
-
-  test('If user types in mismatched confirmed password, the field is highlighted with error displayed', () => {
-    fillFormWithUnmatchedPassword();
-
-    expect(screen.getByLabelText('Confirm Password')).toHaveClass('input-error');
-    expect(screen.getByText('Password mismatch')).toBeInTheDocument();
-  });
   
   test('Next button is enabled once all fields are filled and password is confirmed', () => {
     fillContactForm();
@@ -76,23 +69,53 @@ describe('Testing user availability step', () => {
 });
 
 describe("Testing cancel and submit behaviors of form wizard", () => {
-  test("Clicking Submit button will display appropriate message", () => {
-    render(<App />);
+  const fillAndSubmitForm = () => {
     fillContactForm();
     userEvent.click(screen.getByRole('button', {name: 'Next'}));
     userEvent.click(screen.getByTestId(timeBlockId));
     userEvent.click(screen.getByRole("button", {name: "Submit"}));
+  };
+
+  const expectClearedForm = () => {
+    expect(screen.getByTestId("contact-form")).toHaveFormValues({
+      first: "",
+      last: "",
+      email: "",
+      password: "",
+      confirmPass: ""
+    });
+  };
+
+  beforeEach(() => {
+    render(<App />);
+  })
+
+  test("Clicking Submit button will display appropriate message", () => {
+    fillAndSubmitForm();
 
     expect(screen.getByText(formCompleteMessage)).toBeInTheDocument();
     expect(screen.getByRole("button", {name: "Return to form"})).toBeInTheDocument();
   });
 
   test("Clicking Cancel button will display appropriate message", () => {
-    render(<App />);
     userEvent.click(screen.getByRole("button", {name: "Cancel"}));
 
     expect(screen.getByText(formCancelMessage)).toBeInTheDocument();
     expect(screen.getByRole("button", {name: "Return to form"})).toBeInTheDocument();
   });
+
+  test("Clicking Submit followed by return-to-form button takes user to a cleared form", () => {
+    fillAndSubmitForm();
+    userEvent.click(screen.getByRole("button", {name: "Return to form"}));
+
+    expectClearedForm();
+  });
+
+  test("Clicking Cancel followed by return-to-form button takes user to a cleared form", () => {
+    userEvent.click(screen.getByRole("button", {name: "Cancel"}));
+    userEvent.click(screen.getByRole("button", {name: "Return to form"}));
+
+    expectClearedForm();
+  })
 })
 
