@@ -1,36 +1,57 @@
-# Getting Started with Create React App
+# Form Wizard Demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
+This project showcases a couple React components I worked on for a separate project. These components include a form wizard and a user availability table. 
 
-## Available Scripts
+To demo these components, I have put together a two-step wizard: the first step a signup form and the other the user availability table. 
 
-In the project directory, you can run:
+### Form Wizard 
+A form wizard is often used in web applications to guide a user through a sequence of steps. I implemented a wizard in React that includes the following features:
+
+#### Built-in UI for navigation
+The Wizard includes Cancel, Back, Next, and Submit buttons to navigate through each step. Logic is also in place to ensure that Submit only appears on the last step, and the Back and Next buttons are hidden on the first and last steps respectively. 
+
+There is also an option to change the name of the Submit button if desired. 
+
+#### A convenient interface for developers
+Developers who use the form wizard simply pass elements as children to the wizard. Each child is automatically interpreted as an individual step in the wizard. 
+
+#### Arguments
+onStepChange - this function is invoked whenever the wizard changes steps. It is given the current step as an argument. 
+canProgress - a boolean that is used to determine whether the progress button (Next/Submit) should be disabled. Defaults to true. 
+onSubmit - a callback that is invoked when the Submit button is clicked. 
+onCancel - a callback that is invoked when the Cancel button is clicked. 
+stepLabels - labels for each step of the wizard that are displayed as breadcrumbs
+title - a title for the wizard
+submitName - the name for the submission button. Defaults to Submit. 
+
+### User Availability Table
+This table is being used in a private project to help users schedule times to meet with one another.The user simply clicks on individual time blocks to input their schedule. 
+
+The component behaves similar to a controlled form input. Its state, the availability data, is managed outside of it. 
+
+#### Arguments
+availability - availability data to populate the table with. Defaults to an empty array. 
+readOnly = Determines whether the table is modifiable. Defaults to false
+title - a title for the availability table
+onChange - a callback that is invoked when a time block in the table is clicked on. Receives updated availability data as an argument. 
+
+## Geting started
+
+### `npm install`
+
+Installs relevant dependencies to run the app. 
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `Next steps`
+## `Next steps`
 
 -Use more sophisticated styling frameworks/libraries, such as SASS or styled components
 -Robustify form validation (eg. Require certain password lengths or characters, email should be in appropriate format)
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
