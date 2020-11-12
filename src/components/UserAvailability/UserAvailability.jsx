@@ -1,38 +1,29 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import TimeBlock from './TimeBlock';
 import PropTypes from 'prop-types';
 import './UserAvailability.css';
 
-const UserAvailability = ({currentAvail = [], readOnly = false, title, onChange}) => {
-    const initializeTimeBlocks = () => {
+const UserAvailability = ({availability = [], readOnly = false, title, onChange}) => {
+    let timeBlocks = (function availToTimeBlocks() {
+        const availabilityToIds = availability.map(item => `${item.avail_day}${item.avail_time}`);
+     
+        let isBlockActive;
         let blocks = [];
+        let blockId;
         for (let time = 0; time < 3; time++){
             for (let day = 0; day < 7; day++) {
-                blocks = [...blocks, {id: `${day}${time}`, isActive: false}]
+                blockId = `${day}${time}`;
+                isBlockActive = availabilityToIds.includes(blockId);
+                blocks = [...blocks, {id: `${day}${time}`, isActive: isBlockActive}]
             }
         }
 
         return blocks;
-    }
+    })();
 
-    const timeBlocks = useRef(initializeTimeBlocks());
-
-    const availToTimeBlocks = () => {
-        const availabilityToIds = currentAvail.map(item => `${item.avail_day}${item.avail_time}`);
-        let isBlockActive;
-
-        timeBlocks.current = timeBlocks.current.map(block => {
-            isBlockActive = availabilityToIds.includes(block.id)
-            return {
-                ...block,
-                isActive: isBlockActive
-            }
-        }); 
-    }
-
-    const idsToAvailability = () => {
+    const timeBlocksToAvailability = () => {
         let updatedAvailability = [];
-        timeBlocks.current.forEach(block => {
+        timeBlocks.forEach(block => {
             if (block.isActive) {
                 updatedAvailability = [
                     ...updatedAvailability,
@@ -47,9 +38,9 @@ const UserAvailability = ({currentAvail = [], readOnly = false, title, onChange}
         return updatedAvailability;
     }
 
-    const updateClickedBlock = (blockId) => {
+    const updateAvailability = (blockId) => {
         if (!readOnly) {
-            timeBlocks.current = timeBlocks.current.map(block => {
+            timeBlocks = timeBlocks.map(block => {
                             if (block.id === blockId) {
                                 return {
                                     ...block,
@@ -59,17 +50,13 @@ const UserAvailability = ({currentAvail = [], readOnly = false, title, onChange}
                             return block;
                         })
 
-            if (onChange) {
-                const updatedAvailability = idsToAvailability();
-                onChange(updatedAvailability);
-            }
+            onChange(timeBlocksToAvailability());
         }
     }
 
     const renderTimeLabelsAndBlocks = () => {
-        availToTimeBlocks();
         const timeLabelsAndBlocks = (() => {
-            let temp = [...timeBlocks.current];
+            let temp = [...timeBlocks];
             temp.splice(0, 0, 'Morning');
             temp.splice(8, 0, 'Afternoon');
             temp.splice(16, 0, 'Evening');
@@ -81,7 +68,7 @@ const UserAvailability = ({currentAvail = [], readOnly = false, title, onChange}
                 return <div className="time-of-day" key={item}>{item}</div>
             }
             else {
-                return <TimeBlock readOnly={readOnly} key={item.id} id={item.id} isActive={item.isActive} onClick={updateClickedBlock}/>;
+                return <TimeBlock readOnly={readOnly} key={item.id} id={item.id} isActive={item.isActive} onClick={updateAvailability}/>;
             }
         })
     }
@@ -105,7 +92,7 @@ const UserAvailability = ({currentAvail = [], readOnly = false, title, onChange}
 };
 
 UserAvailability.propTypes = {
-    currentAvail: PropTypes.arrayOf(PropTypes.exact({
+    availability: PropTypes.arrayOf(PropTypes.exact({
                     avail_day: PropTypes.oneOf(['0', '1', '2', '3', '4', '5', '6']).isRequired,
                     avail_time: PropTypes.oneOf(['0', '1', '2']).isRequired
     })).isRequired,
