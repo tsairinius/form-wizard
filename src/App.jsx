@@ -74,7 +74,7 @@ function App() {
       <Message text={showMessage.message} onSubmit={returnToForm}/>
       :
       <StyledContainer className={"wizard-container"}>
-        <Wizard canProgress={canProgress} onCancel={cancelForm} onSubmit={submitForm} onStepChange={getCurrentStep} title="Signup" stepLabels={['Contact information', 'Availability']}> 
+        <Wizard canProgress={canProgress} onCancel={cancelForm} onSubmit={submitForm} onStepChange={getCurrentStep} title="Signup" > 
           <ContactForm onChange={updateContactInfo} contactInfo={contactInfo} isPasswordMatched={isPasswordMatched}/> 
           <div>
             <p className={"user-instructions"}>Please provide your availability below</p>

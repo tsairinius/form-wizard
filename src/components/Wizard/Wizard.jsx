@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import './Wizard.css';
 
 const Wizard = ({onStepChange, canProgress = true, children, onSubmit, onCancel, stepLabels, title, submitName='Submit'}) => {
-    //check that number of step labels equals number of children
-
     const [ currentStep, setCurrentStep ] = useState(0);
     const numSteps = React.Children.count(children);
     const isValidNumSteps = numSteps > 0;
@@ -45,9 +43,9 @@ const Wizard = ({onStepChange, canProgress = true, children, onSubmit, onCancel,
 
     const showBreadcrumbs = () => {
         return (Array.isArray(stepLabels) && stepLabels[0]) ?
-            <>
+            <React.Fragment>
                 <Breadcrumbs onClick={handleBreadcrumbClick} stepLabels={stepLabels} currentStep={currentStep} />
-            </>
+            </React.Fragment>
             : null
     }
 
