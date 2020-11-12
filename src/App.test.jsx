@@ -134,5 +134,21 @@ describe("Testing cancel and submit behaviors of form wizard", () => {
 
     expectClearedForm();
   })
+
+  test("Clicking Submit followed by return-to-form button should clear user availability", () => {
+    fillAndSubmitForm();
+    userEvent.click(screen.getByRole("button", {name: "Return to form"}));
+    fillContactForm();
+    userEvent.click(screen.getByRole("button", {name: "Next"}));
+    expect(document.querySelectorAll(".is-active").length).toBe(0);
+  })
+
+  test("Clicking Cancel followed by return-to-form button should clear user availability", () => {
+    userEvent.click(screen.getByRole("button", {name: "Cancel"}));
+    userEvent.click(screen.getByRole("button", {name: "Return to form"}));
+    fillContactForm();
+    userEvent.click(screen.getByRole("button", {name: "Next"}));
+    expect(document.querySelectorAll(".is-active").length).toBe(0);
+  })
 })
 

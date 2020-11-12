@@ -5,12 +5,12 @@ import userEvent from '@testing-library/user-event';
 
 const isActiveClass = 'is-active';
 test("time blocks specified by availability prop have is-active class", () => {
-    const currentAvail = [{avail_day: '1', avail_time: '0'}, 
+    const availability = [{avail_day: '1', avail_time: '0'}, 
                           {avail_day: '3', avail_time: '1'}, 
                           {avail_day: '6', avail_time: '2'}];
-    render(<UserAvailability currentAvail={currentAvail} onChange={() => jest.fn()}/>);
+    render(<UserAvailability availability={availability} onChange={() => jest.fn()}/>);
 
-    currentAvail.forEach(item => {
+    availability.forEach(item => {
         expect(screen.getByTestId(`${item.avail_day}${item.avail_time}`)).toHaveClass(isActiveClass)
     })
 })
@@ -19,7 +19,7 @@ describe("testing behavior of clicking on time blocks", () => {
     const timeBlockId = "42";
     test("onChange callback cannot be called when UserAvailability's read-only prop is true", () => {
         const handleChange = jest.fn();
-        render(<UserAvailability currentAvail={[]} onChange={handleChange} readOnly={true}/>);
+        render(<UserAvailability availability={[]} onChange={handleChange} readOnly={true}/>);
     
         userEvent.click(screen.getByTestId(timeBlockId));
   
@@ -28,7 +28,7 @@ describe("testing behavior of clicking on time blocks", () => {
 
     test("onChange callback should pass latest user availability data when invoked", () => {
         const handleChange = jest.fn();
-        render(<UserAvailability currentAvail={[]} onChange={handleChange}/>);
+        render(<UserAvailability availability={[]} onChange={handleChange}/>);
 
         userEvent.click(screen.getByTestId(timeBlockId));
         

@@ -55,11 +55,17 @@ function App() {
   const submitForm = () => {
     setShowMessage({shouldShow: true, message: "You completed the demo!"});
     clearForm();
+    clearAvailability();
   };
 
   const cancelForm = () => {
     setShowMessage({shouldShow: true, message: "You exited the demo!"});
     clearForm();
+    clearAvailability();
+  }
+
+  const clearAvailability = () => {
+    setAvailability([]);
   }
 
   return (
@@ -72,7 +78,7 @@ function App() {
           <ContactForm onChange={updateContactInfo} contactInfo={contactInfo} isPasswordMatched={isPasswordMatched}/> 
           <div>
             <p className={"user-instructions"}>Please provide your availability below</p>
-            <UserAvailability currentAvail={availability} onChange={updateAvailability}/>
+            <UserAvailability availability={availability} onChange={updateAvailability}/>
           </div>
         </Wizard>
       </StyledContainer>}
