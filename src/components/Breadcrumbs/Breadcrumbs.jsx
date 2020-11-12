@@ -7,8 +7,8 @@ const Breadcrumbs = ({stepLabels, currentStep}) => {
         <div data-testid="breadcrumbs" className='breadcrumbs'>
             {stepLabels.map((label,idx) => 
                 <React.Fragment key={`${label}-${idx}`}>
-                    <h3 className={(idx === currentStep) ? 'active-step' : undefined}>{label}</h3> 
-                    {(idx < stepLabels.length - 1) ? <h3 className='breadcrumb-slash'> / </h3> : undefined}
+                    <h3 className={(idx === currentStep) ? 'active-step' : null}>{label}</h3> 
+                    {(idx < stepLabels.length - 1) ? <h3 className='breadcrumb-slash'> / </h3> : null}
                 </React.Fragment>
             )}
         </div>

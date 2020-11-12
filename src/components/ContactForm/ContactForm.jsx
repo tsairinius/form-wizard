@@ -13,12 +13,12 @@ const ContactForm = ({onChange, contactInfo, isPasswordMatched}) => {
                 <label htmlFor="email">Email</label>
                 <input type="email" id="email" name="email" value={contactInfo.email} onChange={onChange}/>
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" value={contactInfo.password} onChange={onChange} className={!isPasswordMatched ? 'input-error' : undefined}/>
+                <input type="password" id="password" name="password" value={contactInfo.password} onChange={onChange} className={!isPasswordMatched ? 'input-error' : null}/>
                 <label htmlFor="confirmPass">Confirm Password</label>
-                <input type="password" id="confirmPass" name="confirmPass" value={contactInfo.confirmPass} onChange={onChange} className={!isPasswordMatched ? 'input-error' : undefined}/>
+                <input type="password" id="confirmPass" name="confirmPass" value={contactInfo.confirmPass} onChange={onChange} className={!isPasswordMatched ? 'input-error' : null}/>
             </form>
             <div className="error-messages">
-                {!isPasswordMatched ? <p>Password mismatch</p> : undefined}
+                {!isPasswordMatched ? <p>Password mismatch</p> : null}
             </div>
         </div>
     )
