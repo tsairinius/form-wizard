@@ -4,14 +4,13 @@ import ContactForm from './components/ContactForm';
 import UserAvailability from './components/UserAvailability';
 import StyledContainer from './components/StyledContainer';
 import Wizard from './components/Wizard';
-import './App.css';
 import Message from './components/Message';
+import './App.css';
 
 function App() {
   const { contactInfo,
           updateContactInfo, 
-          isPasswordMatched,
-          updateIsPasswordMatched,
+          formErrors,
           checkForValidForm,
           clearForm
         } = useContactInfo();
@@ -22,7 +21,6 @@ function App() {
   const [ showMessage, setShowMessage ] = useState({shouldShow: false, message: ""});
 
   useEffect(() => {
-    updateIsPasswordMatched();
     updateCanProgress();
   }, [contactInfo, availability, currentStep]);
 
@@ -74,8 +72,8 @@ function App() {
       <Message text={showMessage.message} onSubmit={returnToForm}/>
       :
       <StyledContainer className={"wizard-container"}>
-        <Wizard canProgress={canProgress} onCancel={cancelForm} onSubmit={submitForm} onStepChange={getCurrentStep} title="Signup" > 
-          <ContactForm onChange={updateContactInfo} contactInfo={contactInfo} isPasswordMatched={isPasswordMatched}/> 
+        <Wizard canProgress={canProgress} onCancel={cancelForm} onSubmit={submitForm} onStepChange={getCurrentStep} title="Signup" stepLabels={["Contact info", "Availability"]}> 
+          <ContactForm onChange={updateContactInfo} contactInfo={contactInfo} formErrors={formErrors}/> 
           <div>
             <p className={"user-instructions"}>Please provide your availability below</p>
             <UserAvailability availability={availability} onChange={updateAvailability}/>

@@ -49,6 +49,32 @@ describe("Testing contact form step", () => {
   
     expect(screen.getByRole('button', {name: 'Next'})).not.toHaveAttribute('disabled');
   });
+
+  test('If user types in mismatched confirmed password, both password fields are highlighted with error displayed', () => {
+    fillFormWithUnmatchedPassword();
+
+    expect(screen.getByLabelText("Password")).toHaveClass('input-error');
+    expect(screen.getByLabelText("Confirm Password")).toHaveClass('input-error');
+    expect(screen.getByText('Password mismatch')).toBeInTheDocument();
+  });
+
+  test('If user types in email with no @ symbol, the field is highlighted with error displayed', () => {
+    userEvent.type(screen.getByLabelText("Email"), "invalidEmail.com");
+    expect(screen.getByLabelText("Email")).toHaveClass('input-error');
+    expect(screen.getByText('Invalid email')).toBeInTheDocument();
+  });
+
+  test('If user types in email with no period, the field is highlighted with error displayed', () => {
+    userEvent.type(screen.getByLabelText("Email"), "invalid@Email");
+    expect(screen.getByLabelText("Email")).toHaveClass('input-error');
+    expect(screen.getByText('Invalid email')).toBeInTheDocument();
+  });
+
+  test('If user types in email with no letters/numbers between @ and period, the field is highlighted with error displayed', () => {
+    userEvent.type(screen.getByLabelText("Email"), "invalid@.com");
+    expect(screen.getByLabelText("Email")).toHaveClass('input-error');
+    expect(screen.getByText('Invalid email')).toBeInTheDocument();
+  });
 })
 
 describe('Testing user availability step', () => {
