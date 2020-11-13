@@ -1,16 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useContactInfo = () => {
     const initialInfo = {
-        first: "",
-        last: "",
-        email: "",
-        password: "",
-        confirmPass: ""
+      first: "",
+      last: "",
+      email: "",
+      password: "",
+      confirmPass: ""
       }
+
+    const initialErrors = {
+      email: false,
+      password: false
+    }
     
     const [ contactInfo, setContactInfo ] = useState(initialInfo);
-    const [ isPasswordMatched, setIsPasswordMatched ] = useState(true);
+    const [ formErrors, setFormErrors ] = useState(initialErrors);
+
+    useEffect(() => {
+      updateFormErrors();
+
+    }, [contactInfo])
 
     const updateContactInfo = event => {
         const property = event.target.name;
@@ -21,11 +31,12 @@ const useContactInfo = () => {
             [property]: value
         })
     }
-  
-    const updateIsPasswordMatched = () => {
-      const isMatched = checkForPasswordMatch();
-  
-      setIsPasswordMatched(isMatched);
+
+    const updateFormErrors = () => {
+      setFormErrors({
+        email: !checkForValidEmail(),
+        password: !checkForPasswordMatch()
+      })
     }
   
     const checkForCompleteForm = () => {
@@ -50,6 +61,11 @@ const useContactInfo = () => {
       return isMatched;
     }
 
+    const checkForValidEmail = () => {
+      const emailFormat = /@\w{1,}\.\w{1,}/;
+      return (emailFormat.test(contactInfo.email) || contactInfo.email === "");
+    }
+
     const clearForm = () => {
       setContactInfo(initialInfo);
     }
@@ -57,8 +73,7 @@ const useContactInfo = () => {
     return {
         contactInfo,
         updateContactInfo, 
-        isPasswordMatched,
-        updateIsPasswordMatched,
+        formErrors,
         checkForValidForm,
         clearForm
     }
