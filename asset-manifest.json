@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/form-wizard/static/css/main.4aaf4d3a.chunk.css",
+    "main.js": "/form-wizard/static/js/main.93003e06.chunk.js",
+    "main.js.map": "/form-wizard/static/js/main.93003e06.chunk.js.map",
+    "runtime-main.js": "/form-wizard/static/js/runtime-main.b176536e.js",
+    "runtime-main.js.map": "/form-wizard/static/js/runtime-main.b176536e.js.map",
+    "static/js/2.0c7610e8.chunk.js": "/form-wizard/static/js/2.0c7610e8.chunk.js",
+    "static/js/2.0c7610e8.chunk.js.map": "/form-wizard/static/js/2.0c7610e8.chunk.js.map",
+    "static/js/3.d66a9df8.chunk.js": "/form-wizard/static/js/3.d66a9df8.chunk.js",
+    "static/js/3.d66a9df8.chunk.js.map": "/form-wizard/static/js/3.d66a9df8.chunk.js.map",
+    "index.html": "/form-wizard/index.html",
+    "static/css/main.4aaf4d3a.chunk.css.map": "/form-wizard/static/css/main.4aaf4d3a.chunk.css.map",
+    "static/js/2.0c7610e8.chunk.js.LICENSE.txt": "/form-wizard/static/js/2.0c7610e8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b176536e.js",
+    "static/js/2.0c7610e8.chunk.js",
+    "static/css/main.4aaf4d3a.chunk.css",
+    "static/js/main.93003e06.chunk.js"
+  ]
+}
