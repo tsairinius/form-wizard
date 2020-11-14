@@ -21,6 +21,13 @@ const fillFormWithUnmatchedPassword = () => {
   userEvent.type(confirmPassword, "unmatchedPassword");
 }
 
+const fillFormWithInvalidEmail = () => {
+  const emailInput = screen.getByLabelText("Email");
+  fillContactForm();
+  userEvent.clear(emailInput);
+  userEvent.type(emailInput, "invalidEmail");
+}
+
 const fillContactForm = () => {
   userEvent.type(screen.getByLabelText('First'), contactInfo.first);
   userEvent.type(screen.getByLabelText('Last'), contactInfo.last);
@@ -42,6 +49,12 @@ describe("Testing contact form step", () => {
     fillFormWithUnmatchedPassword();
 
     expect(screen.getByRole('button', {name: 'Next'})).toHaveAttribute('disabled');
+  });
+
+  test('Disable Next if form is filled out but email is invalid', () => {
+    fillFormWithInvalidEmail();
+
+    expect(screen.getByRole("button", {name: "Next"})).toHaveAttribute("disabled");
   });
   
   test('Next button is enabled once all fields are filled and password is confirmed', () => {

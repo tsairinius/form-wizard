@@ -45,7 +45,7 @@ const useContactInfo = () => {
   
     const checkForValidForm = () => {
       let isValid = true;
-      if (!checkForCompleteForm() || !checkForPasswordMatch()) {
+      if (!checkForCompleteForm() || !checkForPasswordMatch() || !checkForValidEmail()) {
         isValid = false;
       }
   
