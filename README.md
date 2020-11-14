@@ -1,7 +1,7 @@
 # Form Wizard Demo
 
 ## Introduction
-This project showcases a couple React components I worked on for a separate project. These components include a form wizard and a user availability table. 
+This project showcases a couple React components I worked on for a different project. These components include a form wizard and a user availability table. 
 
 To demo these components, I have put together a two-step wizard: the first step a signup form and the other the user availability table. 
 
@@ -11,30 +11,32 @@ A form wizard is often used in web applications to guide a user through a sequen
 #### Built-in UI for navigation
 The Wizard includes Cancel, Back, Next, and Submit buttons to navigate through each step. Logic is also in place to ensure that Submit only appears on the last step, and the Back and Next buttons are hidden on the first and last steps respectively. 
 
-There is also an option to change the name of the Submit button if desired. 
-
 #### A convenient interface for developers
 Developers who use the form wizard simply pass elements as children to the wizard. Each child is automatically interpreted as an individual step in the wizard. 
 
 #### Arguments
-onStepChange - this function is invoked whenever the wizard changes steps. It is given the current step as an argument. 
-canProgress - a boolean that is used to determine whether the progress button (Next/Submit) should be disabled. Defaults to true. 
-onSubmit - a callback that is invoked when the Submit button is clicked. 
-onCancel - a callback that is invoked when the Cancel button is clicked. 
-stepLabels - labels for each step of the wizard that are displayed as breadcrumbs
-title - a title for the wizard
-submitName - the name for the submission button. Defaults to Submit. 
+
+| Prop         | Description |
+| ------------ | ----------- |
+| onStepChange | a callback that is invoked whenever the wizard changes steps. It is given the current step as an argument.
+| canProgress  | a boolean that is used to determine whether the progress button (Next/Submit) should be disabled. Defaults to true. 
+| onSubmit     | a callback that is invoked when the submit button is clicked.
+| onCancel | a callback that is invoked when the Cancel button is clicked.
+| stepLabels | labels for each step of the wizard that are displayed as breadcrumbs
+| title | a title for the wizard
 
 ### User Availability Table
-This table is being used in a private project to help users schedule times to meet with one another.The user simply clicks on individual time blocks to input their schedule. 
+This table is being used in a private project to help users schedule times to meet with one another. The user simply clicks on individual time blocks to input their schedule. 
 
 The component behaves similar to a controlled form input. Its state, the availability data, is managed outside of it. 
 
 #### Arguments
-availability - availability data to populate the table with. Defaults to an empty array. 
-readOnly = Determines whether the table is modifiable. Defaults to false
-title - a title for the availability table
-onChange - a callback that is invoked when a time block in the table is clicked on. Receives updated availability data as an argument. 
+| Prop         | Description | 
+| ------------ | ----------- |
+| availability | availability data to populate the table with. Defaults to an empty array. 
+| readOnly     | Determines whether the table is modifiable. Defaults to false.
+| title        | a title for the availability table.
+| onChange     | a callback that is invoked when a time block in the table is clicked. Receives updated availability data as an argument.
 
 ## Geting started
 
@@ -47,11 +49,11 @@ Installs relevant dependencies to run the app.
 Runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## Next steps
 
-## `Next steps`
-
--Use more sophisticated styling frameworks/libraries, such as SASS or styled components
--Robustify form validation (eg. Require certain password lengths or characters, email should be in appropriate format)
+- Use more sophisticated styling frameworks/libraries, such as SASS or styled components
+- Make the app more responsive with wider support for various devices, particularly mobile ones. 
+- The signup form itself was implemented simply to demonstrate the usage of the form wizard. However, it could use more robust form validation (eg. Require certain password lengths or characters, email should be in appropriate format)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
