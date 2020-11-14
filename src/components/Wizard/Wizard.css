@@ -19,31 +19,6 @@
     column-gap: 18px;
     padding: 0 24px 24px 24px;
 }
-  
-/* .wizard-buttons button {
-    max-width: 140px;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid black;
-    color: white;
-} */
-
-/* .wizard-buttons button:disabled {
-    opacity: 45%;
-}
-
-.wizard-buttons button:not(:disabled):hover {
-    cursor: pointer;
-    opacity: 80%;
-} */
-
-/* .wizard-buttons button.primary {
-    background-color: var(--primary-color);
-}
-
-.wizard-buttons button.secondary {
-    background-color: var(--secondary-color);
-} */
 
 .wizard-buttons .cancel-button {
     grid-column: 1 / span 1;

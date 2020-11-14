@@ -28,8 +28,8 @@ const UserAvailability = ({availability = [], readOnly = false, title, onChange}
                 updatedAvailability = [
                     ...updatedAvailability,
                     {
-                        avail_day: block.id[0],
-                        avail_time: block.id[1]
+                        avail_day: Number(block.id[0]),
+                        avail_time: Number(block.id[1])
                     }
                 ]
             }
@@ -93,8 +93,8 @@ const UserAvailability = ({availability = [], readOnly = false, title, onChange}
 
 UserAvailability.propTypes = {
     availability: PropTypes.arrayOf(PropTypes.exact({
-                    avail_day: PropTypes.oneOf(['0', '1', '2', '3', '4', '5', '6']).isRequired,
-                    avail_time: PropTypes.oneOf(['0', '1', '2']).isRequired
+                    avail_day: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6]).isRequired,
+                    avail_time: PropTypes.oneOf([0, 1, 2]).isRequired
     })).isRequired,
     onChange: PropTypes.func.isRequired
 }

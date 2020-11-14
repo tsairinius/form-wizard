@@ -5,9 +5,9 @@ import userEvent from '@testing-library/user-event';
 
 const isActiveClass = 'is-active';
 test("time blocks specified by availability prop have is-active class", () => {
-    const availability = [{avail_day: '1', avail_time: '0'}, 
-                          {avail_day: '3', avail_time: '1'}, 
-                          {avail_day: '6', avail_time: '2'}];
+    const availability = [{avail_day: 1, avail_time: 0}, 
+                          {avail_day: 3, avail_time: 1}, 
+                          {avail_day: 6, avail_time: 2}];
     render(<UserAvailability availability={availability} onChange={() => jest.fn()}/>);
 
     availability.forEach(item => {
@@ -32,6 +32,6 @@ describe("testing behavior of clicking on time blocks", () => {
 
         userEvent.click(screen.getByTestId(timeBlockId));
         
-        expect(handleChange).toHaveBeenLastCalledWith([{avail_day: timeBlockId[0], avail_time: timeBlockId[1]}]);
+        expect(handleChange).toHaveBeenLastCalledWith([{avail_day: Number(timeBlockId[0]), avail_time: Number(timeBlockId[1])}]);
     })
 })

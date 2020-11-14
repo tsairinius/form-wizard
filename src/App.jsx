@@ -6,6 +6,7 @@ import StyledContainer from './components/StyledContainer';
 import Wizard from './components/Wizard';
 import Message from './components/Message';
 import './App.css';
+import useAvailability from './hooks/useAvailability';
 
 function App() {
   const { contactInfo,
@@ -15,7 +16,11 @@ function App() {
           clearForm
         } = useContactInfo();
 
-  const [ availability, setAvailability ] = useState([]);
+  const { availability,
+          updateAvailability,
+          clearAvailability
+        } = useAvailability();
+
   const [ canProgress, setCanProgress ] = useState(true);
   const [ currentStep, setCurrentStep ] = useState(0);
   const [ showMessage, setShowMessage ] = useState({shouldShow: false, message: ""});
@@ -40,31 +45,17 @@ function App() {
     }
   }
 
-  const updateAvailability = (updatedAvail) => {
-    setAvailability(updatedAvail);
-  }
-
-  const getCurrentStep = currentStep => setCurrentStep(currentStep);
-
   const returnToForm = () => {
+    clearForm();
+    clearAvailability();
     setShowMessage({shouldShow: false, message: ""});
   }
 
-  const submitForm = () => {
-    setShowMessage({shouldShow: true, message: "You completed the demo!"});
-    clearForm();
-    clearAvailability();
-  };
+  const submitForm = () => setShowMessage({shouldShow: true, message: "You completed the demo!"});
 
-  const cancelForm = () => {
-    setShowMessage({shouldShow: true, message: "You exited the demo!"});
-    clearForm();
-    clearAvailability();
-  }
+  const cancelForm = () => setShowMessage({shouldShow: true, message: "You exited the demo!"});
 
-  const clearAvailability = () => {
-    setAvailability([]);
-  }
+  const getCurrentStep = currentStep => setCurrentStep(currentStep);
 
   return (
     <div className="form-wizard-app">
