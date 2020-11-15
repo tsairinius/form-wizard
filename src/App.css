@@ -16,12 +16,12 @@
 }
 
 .form-wizard-app button:disabled {
-  opacity: 45%;
+  filter: brightness(80%);
 }
 
 .form-wizard-app button:not(:disabled):hover {
   cursor: pointer;
-  opacity: 80%;
+  filter: brightness(110%)
 }
 
 .form-wizard-app button.primary {

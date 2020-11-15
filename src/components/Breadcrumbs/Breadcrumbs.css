@@ -3,7 +3,7 @@
 }
 
 .breadcrumbs h3 {
-    opacity: 60%;
+    color: gray;
 }
 
 .breadcrumbs .breadcrumb-slash {
@@ -11,5 +11,5 @@
 }
 
 .breadcrumbs .active-step {
-    opacity: 100%;
+    color: black;
 }

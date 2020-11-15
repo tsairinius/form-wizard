@@ -8,8 +8,7 @@
 }
 
 .time-block:not(.read-only):hover {
-    background: #258381;
-    opacity: 50%;
+    background: #66b4b3;
 }
 
 .time-block.is-active {
