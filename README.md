@@ -5,6 +5,10 @@ This project showcases a couple React components I worked on for a different pro
 
 To demo these components, I have put together a two-step wizard: the first step a signup form and the other the user availability table. 
 
+### Live Demo
+Check out a live demo [here](https://tsairinius.github.io/form-wizard/)!
+
+## Details
 ### Form Wizard 
 A form wizard is often used in web applications to guide a user through a sequence of steps. I implemented a wizard in React that includes the following features:
 
@@ -38,21 +42,19 @@ The component behaves similar to a controlled form input. Its state, the availab
 | title        | a title for the availability table.
 | onChange     | a callback that is invoked when a time block in the table is clicked. Receives updated availability data as an argument.
 
-## Geting started
+## Running the app locally
 
-### `npm install`
+```
+git clone https://github.com/tsairinius/form-wizard.git
+npm install
+npm start
+```
+Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
-Installs relevant dependencies to run the app. 
-
-### `npm start`
-
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-## Next steps
-
-- Use more sophisticated styling frameworks/libraries, such as SASS or styled components
-- Make the app more responsive with wider support for various devices, particularly mobile ones. 
+## Next steps 
+Potential improvements to this project include: 
+- Using more sophisticated styling frameworks/libraries, such as SASS or styled components
+- Making the app more responsive and user friendly for mobile devices. 
 - The signup form itself was implemented simply to demonstrate the usage of the form wizard. However, it could use more robust form validation (eg. Require certain password lengths or characters, email should be in appropriate format)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
